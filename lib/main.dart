@@ -1,9 +1,21 @@
 import 'package:flutter/material.dart';
-import 'screens/home_screen.dart';
-import 'screens/paramedic_screen.dart';
+import 'package:provider/provider.dart';
+import 'theme/app_theme.dart';
+import 'screens/welcome_screen.dart';
+import 'providers/app_provider.dart';
+import 'screens/paramedic/paramedic_home.dart';
+import 'screens/patient/patient_main.dart';
 
 void main() {
-  runApp(const AsafniApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => AppProvider()),
+      ],
+      child: const AsafniApp(),
+    ),
+  );
 }
 
 class AsafniApp extends StatelessWidget {
@@ -13,18 +25,18 @@ class AsafniApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Asafni - أسعفني',
-      theme: ThemeData(
-        primaryColor: const Color(0xFF2196F3),
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF2196F3),
-          primary: const Color(0xFF2196F3),
-          secondary: const Color(0xFF4CAF50),
-        ),
-        useMaterial3: true,
-      ),
-      home: const HomeScreen(),
+      theme: AppTheme.theme,
+      initialRoute: '/',
       routes: {
-        '/paramedic': (context) => const ParamedicScreen(),
+        '/': (context) => const WelcomeScreen(),
+        '/patient_home': (context) => const PatientMain(),
+        '/paramedic_home': (context) => const ParamedicHome(),
+      },
+      builder: (context, child) {
+        return Directionality(
+          textDirection: TextDirection.rtl,
+          child: child!,
+        );
       },
     );
   }

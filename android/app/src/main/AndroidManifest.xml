@@ -2,7 +2,13 @@
     <application
         android:label="asafni"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher2">
+
+        <!-- إضافة مفتاح خرائط Google -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="YOUR-API-KEY-HERE"/>
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -42,4 +48,9 @@
             <data android:mimeType="text/plain"/>
         </intent>
     </queries>
+
+    <!-- إضافة الأذونات المطلوبة -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 </manifest>
